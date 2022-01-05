@@ -38,13 +38,11 @@ export function Home() {
                 My Skills
             </Text>
 
-            <ScrollView showsVerticalScrollIndicator="false">
-                {
-                    mySkills.map(skill => (
-                        <SkillCard skill={skill} />
-                    ))
-                }
-            </ScrollView>
+            <FlatList
+                data={mySkills}
+                keyExtractor={item => item}
+                renderItem={({ item }) => <SkillCard skill={item} />}
+            />
         </View>
     )
 }
