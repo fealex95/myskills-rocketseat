@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TextInput,
     Platform,
+    FlatList
 } from 'react-native';
 
 import { Button } from '../components/Button';
@@ -23,6 +24,7 @@ export function Home() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bem vindo, Felipe Alexandre</Text>
+
             <TextInput
                 style={styles.input}
                 placeholder='New skill'
@@ -36,11 +38,13 @@ export function Home() {
                 My Skills
             </Text>
 
-            {
-                mySkills.map(skill => (
-                    <SkillCard skill={skill} />
-                ))
-            }
+            <ScrollView showsVerticalScrollIndicator="false">
+                {
+                    mySkills.map(skill => (
+                        <SkillCard skill={skill} />
+                    ))
+                }
+            </ScrollView>
         </View>
     )
 }
