@@ -12,12 +12,13 @@ import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
 interface SkillData {
-    id: String;
-    name: String;
+    id: string;
+    name: string;
+    date?: Date;
 }
 
 export function Home() {
-    const [newSkill, setNewSkill] = useState();
+    const [newSkill, setNewSkill] = useState('');
     const [mySkills, setMySkills] = useState<SkillData[]>([]);
     const [greeting, setGreeting] = useState('');
 
@@ -27,7 +28,7 @@ export function Home() {
             name: newSkill
         }
 
-        setMySkills(oldState => [...oldState, newSkill]);
+        setMySkills(oldState => [... oldState, data]);
     }
 
     useEffect(() => {
@@ -68,8 +69,8 @@ export function Home() {
 
             <FlatList
                 data={mySkills}
-                keyExtractor={item => item}
-                renderItem={({ item }) => <SkillCard skill={item} />}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <SkillCard skill={item.name} />}
             />
         </View>
     )
