@@ -28,17 +28,21 @@ export function Home() {
             name: newSkill
         }
 
-        setMySkills(oldState => [... oldState, data]);
+        setMySkills(oldState => [...oldState, data]);
+    }
+
+    function handleRemoveSkill(id: string) {
+        setMySkills(oldState => oldState.filter(skill => skill.id !== id))
     }
 
     useEffect(() => {
         const currentHour = new Date().getHours();
 
-        if(currentHour < 12){
+        if (currentHour < 12) {
             setGreeting("Bom dia")
-        }else if (currentHour >= 12 && currentHour < 18){
+        } else if (currentHour >= 12 && currentHour < 18) {
             setGreeting("Boa tarde")
-        }else{
+        } else {
             setGreeting("Boa noite")
         }
 
@@ -49,7 +53,7 @@ export function Home() {
             <Text style={styles.title}>Bem vindo, Felipe Alexandre</Text>
 
             <Text style={styles.greetings}>
-                { greeting }
+                {greeting}
             </Text>
 
             <TextInput
@@ -59,18 +63,24 @@ export function Home() {
                 onChangeText={setNewSkill}
             />
 
-            <Button onPress={handleAddNewSkill} />
+            <Button
+                title='Adicionar'
+                onPress={handleAddNewSkill}
+            />
 
             <Text style={[styles.title, { marginVertical: 50 }]}>
-                My Skills
+                Meus Skills
             </Text>
 
-            
+
 
             <FlatList
                 data={mySkills}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <SkillCard skill={item.name} />}
+                renderItem={({ item }) => <SkillCard
+                    skill={item.name}
+                    onPress={() => handleRemoveSkill(item.id)}
+                />}
             />
         </View>
     )
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#121015',
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         paddingVertical: 70,
 
     },
@@ -100,7 +110,7 @@ const styles = StyleSheet.create({
         borderRadius: 7
     },
 
-    greetings:{
+    greetings: {
         color: '#fff',
     }
 
